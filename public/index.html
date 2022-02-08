@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>Make yourself at home</title>
+      <meta name="description" content="Wahoooo">
+      <!--  note we are using 1.1.0 as most recent -->
+
+      <script src="/js/aframe.min.js"></script>
+      <script src="js/aframe-environment-component.min.js"></script>
+      <script src="js/spinning-effect.js"></script>
+      <!--FOLLOWING SCRIPT ALLOWS FOR PLANES TO BE VISIBLE AND INVISIBLE BY TRIGGER-->
+      <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+
+      <link rel="stylesheet" href="css/user-gesture.css">
+
+      <script>
+          AFRAME.registerComponent('start-experience', {
+            init: function(){
+                console.log('scene loaded');
+                document.querySelector('#user-gesture-button').style.display = 'block';
+            }
+          });
+
+          const startExperience = function(){
+              document.querySelector('#user-gesture-overlay').style.display = 'none';
+
+              //start all ambient sounds
+              const ambientSounds = document.querySelectorAll('.ambient-sound');
+              ambientSounds.forEach(function(soundEntity){
+                soundEntity.components.sound.playSound();
+              });
+          };  
+      
+        //REMOTE CONTROL SCRIPT FOR TV
+        AFRAME.registerComponent('play', {
+          init:function(){
+            var myEl=document.querySelector('#remote');
+            this.el.addEventListener('click', function(){
+                myEl.components.sound.playSound();
+            });
+          }
+        });
+        
+        AFRAME.registerComponent('stop', {
+          init:function(){
+            var myEl=document.querySelector('#remote');
+            this.el.addEventListener('click', function(){
+                myEl.components.sound.pauseSound();
+            });
+          }
+        });
+
+        //FROSTI BY BJORK BUTTONS, needs a separate function so it doesnt accidentally play every audio over each other
+        AFRAME.registerComponent('frostiplay', {
+        init:function(){
+          var myEl=document.querySelector('#mobile');
+          this.el.addEventListener('click', function(){
+              myEl.components.sound.playSound();
+          });
+        }
+      });
+        
+        AFRAME.registerComponent('frostistop', {
+          init:function(){
+            var myEl=document.querySelector('#mobile');
+            this.el.addEventListener('click', function(){
+                myEl.components.sound.pauseSound();
+            });
+          }
+        });
+        
+      </script>
+    </head>
+
+    <body>
+        <div id="user-gesture-overlay">
+            <div class="center">
+                <button id="user-gesture-button" onclick="startExperience()">Make yourself at home!</button>
+            </div>
+        </div>
+
+      <a-scene start-experience> <!-- start experience here-->
+        <a-assets timeout="10000">
+            <img id="tv" src="assets/tv.png" crossorigin="anonymous">
+            <img id="nm1" src="assets/NMScreen1.png" crossorigin="anonymous">
+            <img id="nm2" src="assets/NMScreen2.png" crossorigin="anonymous">
+            <img id="face1" src="assets/face1.png" crossorigin="anonymous">
+            <img id="face2" src="assets/face2.png" crossorigin="anonymous">
+            <img id="face3" src="assets/face3.png" crossorigin="anonymous">
+            <img id="face4" src="assets/face4.png" crossorigin="anonymous">
+            <img id="face5" src="assets/face5.png" crossorigin="anonymous">
+            <img id="face6" src="assets/face6.png" crossorigin="anonymous">
+            <img id="face7" src="assets/face7.png" crossorigin="anonymous">
+            <img id="face8" src="assets/face8.png" crossorigin="anonymous">
+            <img id="face9" src="assets/face9.png" crossorigin="anonymous">
+
+
+
+            <a-asset-item id="clothes_model" response-type="arraybuffer" src="assets/Clothes.glb"></a-asset-item>
+            <a-asset-item id="noodles1_model" response-type="arraybuffer" src="assets/CupNoodles1.glb"></a-asset-item>
+            <a-asset-item id="noodles2_model" response-type="arraybuffer" src="assets/CupNoodles2.glb"></a-asset-item>
+            <a-asset-item id="desk_model" response-type="arraybuffer" src="assets/Desk.glb"></a-asset-item>
+            <a-asset-item id="deskItems_model" response-type="arraybuffer" src="assets/DeskItems1.glb"></a-asset-item>
+            <a-asset-item id="floor_model" response-type="arraybuffer" src="assets/Floor.glb"></a-asset-item>
+            <a-asset-item id="keyboard_model" response-type="arraybuffer" src="assets/Keyboard.glb"></a-asset-item>
+            <a-asset-item id="lamp1_model" response-type="arraybuffer" src="assets/lamp1.glb"></a-asset-item>
+            <a-asset-item id="magazine_model" response-type="arraybuffer" src="assets/Magazines.glb"></a-asset-item>
+            <a-asset-item id="magazine2_model" response-type="arraybuffer" src="assets/Magazines2.glb"></a-asset-item>
+            <a-asset-item id="mattress_model" response-type="arraybuffer" src="assets/Mattress.glb"></a-asset-item>
+            <a-asset-item id="mobile_model" response-type="arraybuffer" src="assets/Mobile.glb"></a-asset-item>
+            <a-asset-item id="newmonitor_model" response-type="arraybuffer" src="assets/NewMonitor.glb"></a-asset-item>
+            <a-asset-item id="nightstand_model" response-type="arraybuffer" src="assets/Nightstand.glb"></a-asset-item> <!--glb binary -->
+            <a-asset-item id="nightstand1_model" response-type="arraybuffer" src="assets/NightstandItems1.glb"></a-asset-item>
+            <a-asset-item id="nightstand2_model" response-type="arraybuffer" src="assets/NightstandItems2.glb"></a-asset-item>
+            <a-asset-item id="nightstand3_model" response-type="arraybuffer" src="assets/NightstandItems3.glb"></a-asset-item>
+            <a-asset-item id="nightstand4_model" response-type="arraybuffer" src="assets/NightstandItems4.glb"></a-asset-item>
+            <a-asset-item id="oldMonitor_model" response-type="arraybuffer" src="assets/OldMonitor.glb"></a-asset-item>
+            <a-asset-item id="tower_model" response-type="arraybuffer" src="assets/PCTower.glb"></a-asset-item>
+            <a-asset-item id="pizza_model" response-type="arraybuffer" src="assets/PizzaBowls.glb"></a-asset-item>
+            <a-asset-item id="plushie1_model" response-type="arraybuffer" src="assets/plushie1.glb"></a-asset-item>
+            <a-asset-item id="plushie2_model" response-type="arraybuffer" src="assets/plushie2.glb"></a-asset-item>
+            <a-asset-item id="ps3_model" response-type="arraybuffer" src="assets/ps3.glb"></a-asset-item>
+            <a-asset-item id="shelf_model" response-type="arraybuffer" src="assets/Shelf.glb"></a-asset-item>
+            <a-asset-item id="shelf1_model" response-type="arraybuffer" src="assets/ShelfItems1.glb"></a-asset-item>
+            <a-asset-item id="shelf2_model" response-type="arraybuffer" src="assets/ShelfItems2.glb"></a-asset-item>
+            <a-asset-item id="shelf3_model" response-type="arraybuffer" src="assets/ShelfItems3.glb"></a-asset-item>
+            <a-asset-item id="tvSpeakers_model" response-type="arraybuffer" src="assets/TVandSpeakers.glb"></a-asset-item>
+            <a-asset-item id="tvStand_model" response-type="arraybuffer" src="assets/TVstand.glb"></a-asset-item>
+            <a-asset-item id="wall1_model" response-type="arraybuffer" src="assets/Wall1-Door.glb"></a-asset-item>
+            <a-asset-item id="wall2_model" response-type="arraybuffer" src="assets/Wall2.glb"></a-asset-item>
+            <a-asset-item id="wall3_model" response-type="arraybuffer" src="assets/Wall3.glb"></a-asset-item>
+            <a-asset-item id="wall4_model" response-type="arraybuffer" src="assets/Wall4.glb"></a-asset-item>
+            <a-asset-item id="whiteShelf_model" response-type="arraybuffer" src="assets/WhiteShelf.glb"></a-asset-item>
+            <a-asset-item id="wShelf1_model" response-type="arraybuffer" src="assets/WshelfItems1.glb"></a-asset-item>
+            <a-asset-item id="wShelf2_model" response-type="arraybuffer" src="assets/WshelfItems2.glb"></a-asset-item>
+
+
+            <audio id="background_music" src="assets/WithTheFlies.mp3" preload="auto" crossorigin="anonymous"></audio>
+            <audio id="RHONJ" src="assets/TVaudio.mp3" preload="auto" crossorigin="anonymous"></audio>
+            <audio id="frosti" src="assets/Frosti.mp3" preload="auto" crossorigin="anonymous"></audio>
+            <audio id="WBlue" src="assets/bluescreenaudio.mp3" preload="auto" crossorigin="anonymous"></audio>
+            <audio id="voice1" src="assets/fourvoices.wav" preload="auto" crossorigin="anonymous"></audio>
+            <audio id="voice2" src="assets/fourvoices2.wav" preload="auto" crossorigin="anonymous"></audio>
+            <audio id="voice4" src="assets/whisper2.mp3" preload="auto" crossorigin="anonymous"></audio>
+        </a-assets>
+      
+        <a-entity camera wasd-controls look-controls position="0 1.6 0">
+            <a-entity light="type:spot; castShadow:true; shadowBias:-0.0005; angle:40; penumbra:0.3;" position="0 1 0" color="rgb(195,194,182)"></a-entity>
+          <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive;"></a-entity> <!-- CREATE CURSOR HERE TO RAYCAST-->
+        </a-entity>
+       
+        <a-entity class="ambient-sound" sound="src:#background_music; autoplay:false;" position="10 0 10"></a-entity>
+
+        <a-entity id="earth_plaque" position = "0 0.5 -4" rotation = "-30 0 0">
+            <a-entity geometry="primitive:box; width:3.0; height:1.2; depth:0.2;" material="color:white;" position="0 0 -0.11" shadow="cast:true; receive:true;"></a-entity>
+            <a-entity text="value:Make yourself at home -->; color:black; font:roboto; width:1.3; anchor:center; baseline:top; wrapCount:12;" position="0.060 0.237 0.138" shadow="cast:false; receive:true;"></a-entity>
+        </a-entity>
+
+        <!-- 3D MODELS PLACED IN SCENE -->
+
+        <a-entity id="clothes" position="15.6636 0.24321 -4.45079" scale="4.09809 4.09809 4.09809" gltf-model="#clothes_model" shadow=""></a-entity>
+
+        <a-entity id="noodles" position="8.649 1.184 -3.899" scale="0.094 0.094 0.094" rotation="0 -60.962 0" gltf-model="#noodles1_model" shadow=""></a-entity>
+        <a-entity id="noodles" position="10.80392 0.03361 2.04411" scale="0.094 0.094 0.094" rotation="0 -60.96200000000001 0" gltf-model="assets/CupNoodles1.glb" shadow=""></a-entity>
+        <a-entity id="noodles" position="7.928 0.806 -2.427" scale="0.094 0.094 0.094" rotation="0 141.428 0" gltf-model="#noodles2_model" shadow=""></a-entity>
+        <a-entity id="noodles" position="12.16579 1.99407 -4.41894" scale="0.094 0.094 0.094" rotation="0 141.428 0" gltf-model="assets/CupNoodles2.glb" shadow=""></a-entity>
+        <a-entity id="noodles" position="7.87315 0.06465 -2.21738" scale="0.094 0.094 0.094" rotation="0 -125.29441063920842 0" gltf-model="assets/CupNoodles2.glb" shadow=""></a-entity>
+
+        <a-entity id="desk" position="-5.885 0 0" scale="1.125 1 1" gltf-model="#desk_model" shadow="cast:true; receive:true;"></a-entity>
+        <a-entity id="desk" position="0 0.896 0" gltf-model="#deskItems_model" shadow="cast:true; receive:true;"></a-entity>
+
+        <a-entity id="floor" position="0 0.9 0" gltf-model="#floor_model" shadow="cast:true; receive:true;"></a-entity>
+        <a-entity id="keyboard" position="0 0.9 0" gltf-model="#keyboard_model" shadow="cast:true; receive:true;"></a-entity>
+        <a-entity id="magazines" position="7.765 0.061 -3.838" scale="1.379 1.379 1.379" rotation="0 -86.130 0" gltf-model="#magazine_model" shadow=""></a-entity>
+        <a-entity id="magazines2" position="10.317 0.061 3.925" scale="1.379 1.379 1.379" rotation="0 0 0" gltf-model="#magazine2_model" shadow=""></a-entity>
+        <a-entity id="mattress" position="0 1 0" gltf-model="#mattress_model" shadow="cast:true; receive:true;"></a-entity>
+        <a-entity id="newmonitor" position="-3.909 0 0.193" gltf-model="#newmonitor_model" shadow="cast:true; receive:true;"></a-entity>
+        <a-entity id="plushie" gltf-model="#plushie1_model" shadow="cast:true; receive:true;" position="7.907 1.552 -3.885" rotation="0 34.026 0"></a-entity>
+        <a-entity id="plushie" gltf-model="assets/plushie2.glb" shadow="cast:true; receive:true;" position="13.214 0.634 2.459" rotation="-114.834 -27.046 130.801" scale="0.42593 0.42616 0.42593"></a-entity>
+
+        <a-entity id="nightstand" position="-4.116 0 0" gltf-model="#nightstand_model" shadow="cast:true; receive:true;"></a-entity>
+        <a-entity id="nightstand" position="-4.116 0 0" gltf-model="#nightstand1_model" shadow="cast:true; receive:true;"></a-entity>
+        <a-entity id="nightstand" position="-4.116 0 0" gltf-model="#nightstand2_model" shadow="cast:true; receive:true;"></a-entity>
+        <a-entity id="nightstand" position="-4.116 0 0" gltf-model="#nightstand3_model" shadow="cast:true; receive:true;"></a-entity>
+        <a-entity id="nightstand" position="-4.116 0 0" gltf-model="#nightstand4_model" shadow="cast:true; receive:true;"></a-entity>
+
+        <a-entity id="lamp" position="12.789 0.280 -4.505" scale="0.7 0.7 0.7" gltf-model="assets/lamp1.glb" shadow="cast:true; receive:true;"></a-entity>
+        <a-entity light="color:  #a9a18e;  groundColor:  #ffffff;  decay:  -0.7;  distance:  9.75;  intensity:  1.72;  type:  spot;  castShadow:  true;  shadowCameraFar:  500.49;  shadowCameraFov:  88.84;  shadowCameraRight:  0;  shadowCameraLeft:  0;  shadowMapHeight:  0;  shadowRadius:  0;  penumbra:  0.48;  shadowBias:  0.79;  shadowCameraNear:  0;  shadowCameraTop:  4.6;  shadowMapWidth:  0" rotation="-90 0 0" scale="0.7 0.7 0.7" position="12.789 6.005 -0.610"></a-entity>
+        <a-entity id="pctower" position="11.804 -0.039 -4.220" gltf-model="#tower_model" shadow="cast:true; receive:true;"></a-entity>
+        <a-entity id="monitor" position="-3.996 -0.028 0.264" gltf-model="#oldMonitor_model" shadow="cast:true; receive:true;"></a-entity>
+        <a-entity id="pizzabowl" position="-3.239 -0.028 -0.225" gltf-model="#pizza_model" shadow="cast:true; receive:wetrue;"></a-entity>
+        <a-entity id="ps3" position="8.275 0.060 2.861" rotation="0 127.236 0" gltf-model="#ps3_model" shadow="cast:true; receive:true;"></a-entity>
+        
+        <a-entity id="shelf" position="-3.960 0 0" shadow="cast:true; receive:true;">
+          <a-entity gltf-model="#shelf_model"></a-entity>
+          <a-entity gltf-model="#shelf1_model" ></a-entity>
+          <a-entity gltf-model="#shelf2_model" position="15.970 1.040 -4.439"></a-entity>
+          <a-entity gltf-model="#shelf3_model" position="15.975 0.521 -4.372" scale="0.611 0.611 0.611"></a-entity>
+        </a-entity>
+        <a-entity id="tvStand" position="-3.941 0 0" gltf-model="#tvStand_model" shadow="cast:true; receive:true;"></a-entity>
+        <a-entity id="tvSpeakers" position="-3.941 0 0" gltf-model="#tvSpeakers_model" shadow="cast:true; receive:true;"></a-entity>
+
+        <a-entity id="whiteshelf" position="-4.174 0 0" gltf-model="#whiteShelf_model" shadow="cast:true; receive:true;"></a-entity>
+        <a-entity id="whiteshelf" position="-0.470 0.165 0" gltf-model="#wShelf1_model" shadow="cast:true; receive:true;"></a-entity>
+        <a-entity id="whiteshelf" position="-0.543 0.893 0" gltf-model="#wShelf2_model" shadow="cast:true; receive:true;"></a-entity>
+        
+        
+        
+        <a-entity id="room">
+            <a-entity class="ground" geometry="primitive: plane; width: 14; height: 14" material="color: #601f1f; emissiveIntensity: 0" position="5.242 0.01 0" rotation="-90 0 0" scale="2.006 1 1" shadow="cast: false"></a-entity>
+            <a-entity id="walls" position="0 0.90 0">
+                <a-entity id="wall" gltf-model="#wall1_model" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity id="wall" gltf-model="#wall2_model" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity id="wall" gltf-model="#wall3_model" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity id="wall" gltf-model="#wall4_model" shadow="cast:true; receive:true;"></a-entity>
+                </a-entity>
+            <a-entity id="roof" geometry="primitive: box;" position="11.851 5.536 -0.326" scale="9.299 0.470 9.450" material="color:black; emissiveIntensity: 0"></a-entity>
+        </a-entity>
+
+        <!--PLANET MOBILE INTERACTION-->
+        <a-entity id="mobile" sound="src:#frosti; rolloffFactor:1; loop:true;" position="14.735 0.357 -2.936"> 
+          <a-entity class="button interactive" frostiplay scale="0.482 0.482 0.482" rotation="180 -63.161 180" gltf-model="#mobile_model" shadow="cast:true; receive:true;"
+          animation__click="property: rotation.y; to: 360; from: 0; startEvents: click; dur: 6000; easing:linear; loop:true" ></a-entity>
+          <a-entity class="button interactive" frostistop position="0 -0.363 0" geometry="primitive: cylinder; radius: 0.08; height: 0.2" material="color: rgb(255,100,100)" shadow="" 
+            animation__mouseenter="property: material.color; type: color; to: rgb(255,0,0); startEvents: mouseenter; dur: 200" 
+            animation__mouseleave="property: material.color; type: color; to: rgb(255,100,100); startEvents: mouseleave; dur: 200" 
+            animation__click="property: position.y; to: -0.41; from: -0.363; startEvents: click; dur: 300"></a-entity> </a-entity>
+          
+
+        <!--REMOTE CONTROL-->
+        <a-entity id="remote" sound="src:#RHONJ; rolloffFactor:1; loop:true;" position="7.460 0 2.501">
+          <a-entity id="universal_button" position="1.527 0 0.080" scale="1 0.226 1">
+            <a-entity class="button interactive" play position="0 0.69589 0" geometry="primitive: cylinder; radius: 0.15; height: 0.2" material="color: rgb(100,255,100)" shadow="" 
+              animation__mouseenter="property: material.color; type: color; to: rgb(0,255,0); startEvents: mouseenter; dur: 200" 
+              animation__mouseleave="property: material.color; type: color; to: rgb(100,255,100); startEvents: mouseleave; dur: 200" 
+              animation__click="property: position.y; to: 0.6; from: 0.55; startEvents: click; dur: 300" 
+              event-set__click="_event: click; _target: #screen; visible: true;"
+              ></a-entity>
+            <a-entity position="0 0.3 0" geometry="width: 0.5; depth: 0.5; height: 0.6" material="color: #383838" shadow=""></a-entity>
+          </a-entity>
+          <a-entity id="universal_button" stop position="1.527 0 -0.414" scale="1 0.226 1">
+            <a-entity class="button interactive" position="0 0.696 0" geometry="primitive: cylinder; radius: 0.15; height: 0.2" material="color: rgb(255,100,100)" shadow="" 
+              animation__mouseenter="property: material.color; type: color; to: rgb(255,0,0); startEvents: mouseenter; dur: 200" 
+              animation__mouseleave="property: material.color; type: color; to: rgb(255,100,100); startEvents: mouseleave; dur: 200" 
+              animation__click="property: position.y; to: 0.6; from: 0.55; startEvents: click; dur: 300" 
+              event-set__click="_event: click; _target: #screen; visible: false;"
+              ></a-entity>
+            <a-entity position="0 0.3 0" geometry="width: 0.5; depth: 0.5; height: 0.6" material="color: #383838" shadow=""></a-entity>
+          </a-entity>
+        </a-entity>
+
+        <a-entity id="screen" geometry="primitive: plane; width: 2; height: 1.5" material="src:#tv;" visible="false" position="7.614 1.093 2.340" rotation="0 90 0" scale="0.635 0.480 1.000" shadow="cast: false"></a-entity>
+    
+
+
+
+        <!--NEW COMPUTER SCREEN REMOTE-->
+
+        <script>
+          //SCRIPT FOR NEW MONITOR WINDOWS BLUE SCREEN SOUND
+          AFRAME.registerComponent('wbp', {
+          init:function(){
+            var myEl=document.querySelector('#newm');
+            this.el.addEventListener('click', function(){
+                myEl.components.sound.playSound();
+            });
+          }
+        });
+        
+        AFRAME.registerComponent('wbs', {
+          init:function(){
+            var myEl=document.querySelector('#newm');
+            this.el.addEventListener('click', function(){
+                myEl.components.sound.pauseSound();
+            });
+          }
+        });
+        </script>
+
+        <a-entity id="screens" position="9.1791 1.72711 -4.21774" rotation="0 13.107555479207843 0" scale="0.5349 0.5349 0.5349">
+          <a-entity id="nmscreen" class="interactive" geometry="primitive: plane; width: 2; height: 1.272" visible="false" 
+            animation__="property: position.y; from:0; to:0.05; dur: 20; loop:true"></a-entity>
+       </a-entity>
+
+
+        <a-entity id="newm" sound="src:#WBlue; volume:0.4; loop:true;" position="9.277 1.181 -4.036" scale="0.321 0.073 0.321" rotation="0 16.861 0">
+          <a-entity id="universal_button">
+            <a-entity class="button interactive" wbp position="0 0.69589 0" geometry="primitive: cylinder; radius: 0.15; height: 0.2" material="color: rgb(100,255,100)" shadow="" 
+              animation__mouseenter="property: material.color; type: color; to: rgb(0,255,0); startEvents: mouseenter; dur: 200" 
+              animation__mouseleave="property: material.color; type: color; to: rgb(100,255,100); startEvents: mouseleave; dur: 200" 
+              animation__click="property: position.y; to: 0.6; from: 0.55; startEvents: click; dur: 300" 
+              event-set__click="_event: click; _target: #nmscreen; visible: true; material:src:#nm1;"
+              ></a-entity>
+            <a-entity position="0 0.3 0" geometry="width: 0.5; depth: 0.5; height: 0.6" material="color: #383838" shadow=""></a-entity>
+          </a-entity>
+          <a-entity id="universal_button" position="0.366 0 -0.002">
+            <a-entity class="button interactive" wbs position="0 0.696 0" geometry="primitive: cylinder; radius: 0.15; height: 0.2" material="color: rgb(255,100,100)" shadow="" 
+              animation__mouseenter="property: material.color; type: color; to: rgb(255,0,0); startEvents: mouseenter; dur: 200" 
+              animation__mouseleave="property: material.color; type: color; to: rgb(255,100,100); startEvents: mouseleave; dur: 200" 
+              animation__click="property: position.y; to: 0.6; from: 0.55; startEvents: click; dur: 300" 
+              event-set__click="_event: click; _target: #nmscreen; visible: true; material:src:#nm2;"
+              ></a-entity>
+            <a-entity position="0 0.3 0" geometry="width: 0.5; depth: 0.5; height: 0.6" material="color: #383838" shadow=""></a-entity>
+          </a-entity>
+        </a-entity>
+
+
+
+        <!-- FACES ON WALLS -->
+
+
+        <script>
+          //SCRIPT FOR FACES ON WALLS
+          AFRAME.registerComponent('whispers1', {
+          init:function(){
+            var myEl=document.querySelector('#cluster');
+            this.el.addEventListener('click', function(){
+                myEl.components.sound.playSound();
+            });
+          }
+        });
+        
+        AFRAME.registerComponent('whispers2', {
+          init:function(){
+            var myEl=document.querySelector('#bedvoice');
+            this.el.addEventListener('click', function(){
+                myEl.components.sound.playSound();
+            });
+          }
+        });
+
+        AFRAME.registerComponent('singlevoice1', {
+          init:function(){
+            var myEl=document.querySelector('#topcorner');
+            this.el.addEventListener('click', function(){
+                myEl.components.sound.playSound();
+            });
+          }
+        });
+        </script>
+
+
+        <a-entity  id="cluster" sound="src:#voice1;"  position="9.982 2.042 -4.853" rotation="0 0 30.254">
+          <a-entity class="button interactive" whispers1 geometry="primitive: plane; width: 0.847; height: 1.16" material="src:#face1" scale="0.187 0.187 1"
+            animation__="property: position.y; from:0; to:-0.01; dur: 120; loop:true"
+            event-set__enter="_event: mouseenter; scale: 0.4 0.4 1;"
+            event-set__leave="_event: mouseleave; scale: 0.187 0.187 1;"></a-entity></a-entity>
+
+       <a-entity  id="cluster" sound="src:#voice1;"  position="10.255 2.072 -4.853" rotation="0 0 -12.989">
+          <a-entity class="button interactive" whispers1 geometry="primitive: plane; width: 0.847; height: 1.16" material="src:#face2" scale="0.287 0.287 1"
+            animation__="property: position.x; from:0; to:-0.015; dur: 50; easing:linear; loop:true"
+            event-set__enter="_event: mouseenter; scale: 0.4 0.4 1;"
+            event-set__leave="_event: mouseleave; scale: 0.287 0.287 1;"></a-entity></a-entity>
+
+        <a-entity  id="bedvoice" sound="src:#voice2;"  position="15.859 0.325 3.266" rotation="0 -176.190 0">
+          <a-entity class="button interactive" whispers2 geometry="primitive: plane; width: 0.847; height: 1.16" material="src:#face3" scale="0.7 0.7 1"
+            animation__="property: position.y; from:0; to:0.1; dur: 98; loop:true; easing:linear;"
+            animation__mouseenter="property: position.y; from:0; to:0.03; dur: 50; easing:linear; loop:true; startEvents: mouseenter;" 
+            animation__mouseleave="property: position.y; from:0; to:0.1; dur: 98; easing:linear; loop:true; startEvents: mouseleave;"
+            event-set__enter="_event: mouseenter; rotation: 0 14.494 180;"
+            event-set__leave="_event: mouseleave; rotation: 0 14.494 0;"></a-entity></a-entity>
+
+      <a-entity  id="topcorner" sound="src:#voice4;"  position="9.600 4.811 4.221" rotation="0 180 0">
+        <a-entity class="button interactive" singlevoice1 geometry="primitive: plane; width: 0.847; height: 1.16" material="src:#face8" scale="0.710 0.710 1"
+          animation__="property: position.y; from:0; to:-0.22; dur: 190; loop:true; easing:linear"></a-entity></a-entity>
+          
+      <a-entity  id="cluster" sound="src:#voice1;"  position="10.378 2.454 -4.853" rotation="0 0 -12.989">
+        <a-entity class="button interactive" whispers1 geometry="primitive: plane; width: 0.847; height: 1.16" material="src:#face9" scale="0.2165 0.2165 1"
+          event-set__enter="_event: mouseenter; scale: 0.4 0.4 1;"
+          event-set__leave="_event: mouseleave; scale: 0.2165 0.2165 1;"></a-entity></a-entity>
+  
+
+
+
+        <a-entity environment="preset:starry;"></a-entity>
+      </a-scene>
+    </body>
+</html> 
